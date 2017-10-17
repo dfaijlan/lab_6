@@ -1,7 +1,12 @@
+<!---->
+
 <!DOCTYPE html>
 <html>
     <head>
         <title>Database Search</title>
+        <style>
+            @import url("styles.css");
+        </style>
     </head>
     <body>
         <?php
@@ -23,30 +28,59 @@
         
         
         // make a query
-        $sql = "SELECT * FROM device ORDER BY deviceName";
+        if($_GET["sort"] == "price")
+            $sort = "price";
+        else
+            $sort = "deviceName";
+                
+        if ($_GET["filter"] != "")
+        {
+            $filter = $_GET["filter"];
+            if ($_GET["filter_choice"] == "name")
+                $sql = "SELECT * FROM device WHERE deviceName = '$filter' ORDER BY $sort";
+            elseif ($_GET["filter_choice"] == "type")
+                $sql = "SELECT * FROM device WHERE deviceType = '$filter' ORDER BY $sort";   
+            else
+                $sql = "SELECT * FROM device WHERE status = '$filter' ORDER BY $sort";
+        }
+        else 
+        {
+             $sql = "SELECT * FROM device ORDER BY $sort";
+        }
         $result = $conn->query($sql);
         if($result->num_rows > 0){
+        ?>
+        
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Device</th>
+                <th>Type</th>
+                <th>Price</th>
+                <th>Availability</th>
+            </tr>
+        <?php
             while($row = $result->fetch_assoc())
             {
-                echo "Id: " . $row['id'] . " Device: ". $row['deviceName'] . " / Type: " . $row['deviceType'] . " / Availability: " . $row['status'] . "<br />";
+                echo "<tr><td>" . $row['id'] . "</td><td>". $row['deviceName'] . "</td><td>" . $row['deviceType'] . "</td><td>" . $row['price'] . "</td><td>" . $row['status'] . "</td></tr>";
             }
         }
         else{
             echo "0 results";
         }
         ?>
+        </table>
         
         <form>
             <br>Filter by: 
-            <select name="filter">
-                <option value="">Select One</option>
+            <select name="filter_choice">
                 <option value="name">Name</option>
                 <option value="type">Type</option>
-                <option value="availability">Availability</option>
+                <option value="Availability">Availability</option>
             </select>
+            <input type="text" name="filter" value = "">
             Sort by: 
             <select name="sort">
-                <option value="">Select One</option>
                 <option value="name">Name</option>
                 <option value="price">Price</option>
             </select>
