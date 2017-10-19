@@ -37,11 +37,11 @@
         {
             $filter = $_GET["filter"];
             if ($_GET["filter_choice"] == "name")
-                $sql = "SELECT * FROM device WHERE deviceName = '$filter' ORDER BY $sort";
+                $sql = "SELECT * FROM device WHERE deviceName LIKE '%$filter%' ORDER BY $sort";
             elseif ($_GET["filter_choice"] == "type")
-                $sql = "SELECT * FROM device WHERE deviceType = '$filter' ORDER BY $sort";   
+                $sql = "SELECT * FROM device WHERE deviceType LIKE '%$filter%' ORDER BY $sort";   
             else
-                $sql = "SELECT * FROM device WHERE status = '$filter' ORDER BY $sort";
+                $sql = "SELECT * FROM device WHERE status LIKE '%$filter%' ORDER BY $sort";
         }
         else 
         {
