@@ -12,7 +12,7 @@ function departmentList() {
     
      global $conn;
      
-     $sql = "SELECT * FROM Departments ORDER BY name";
+     $sql = "SELECT * FROM departments ORDER BY name";
      
      $stmt = $conn->prepare($sql);
      $stmt->execute();
@@ -24,7 +24,7 @@ function getUserInfo() {
     global $conn;
     
     $sql = "SELECT *
-            FROM User
+            FROM user
             WHERE id = " . $_GET['userId'];
             
     $stmt = $conn->prepare($sql);

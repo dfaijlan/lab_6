@@ -9,7 +9,7 @@ function userList() {
      include 'database.php';
      $conn = getDatabaseConnection();
      
-     $sql = "SELECT * FROM User ORDER BY firstName";
+     $sql = "SELECT * FROM user ORDER BY firstName";
              
      $stmt = $conn->prepare($sql);
      $stmt->execute();

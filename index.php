@@ -12,7 +12,7 @@ function loginProcess() {
         $password = sha1($_POST['password']);
         
         $sql = "SELECT * 
-                FROM Admin 
+                FROM admin 
                 WHERE username = :username
                 AND password = :password";
                 

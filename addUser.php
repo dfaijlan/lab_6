@@ -11,7 +11,7 @@ function departmentList() {
     
      global $conn;
      
-     $sql = "SELECT * FROM Departments ORDER BY name";
+     $sql = "SELECT * FROM departments ORDER BY name";
      
      $stmt = $conn->prepare($sql);
      $stmt->execute();
@@ -23,7 +23,7 @@ function addUser() {
     global $conn;
     if (isset($_GET['addUser'])) {
         
-        $sql = "INSERT INTO User
+        $sql = "INSERT INTO user
                     (firstName, lastName, email, phone, role, deptId)
                 VALUES
                     (:fName, :lName, :email, :phone, :role, :deptId)";
