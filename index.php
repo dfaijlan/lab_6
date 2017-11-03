@@ -59,6 +59,9 @@ function loginProcess() {
 
         <br />
         
+        <a href="https://github.com/dfaijlan/lab_6" target="_blank">GitHub</a>
+        <a href="https://dashboard.heroku.com/apps/faji9757-lab6" target="_blank">Heroku</a>
+        
         <?=loginProcess()?>
     </body>
 </html>

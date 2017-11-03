@@ -65,9 +65,9 @@ function addUser() {
                    <p><label>Role:</label> 
                    <select name="role" required>
                         <option value=""> - Select One - </option>
-                        <option value="staff">Staff</option>
-                        <option value="student">Student</option>
-                        <option value="faculty">Faculty</option>
+                        <option value="Staff">Staff</option>
+                        <option value="Student">Student</option>
+                        <option value="Faculty">Faculty</option>
                     </select></p>
                     <br />
                     <p><label>Department:</label>

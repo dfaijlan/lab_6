@@ -92,9 +92,9 @@ function updateUser() {
             <p><label>Role:</label> 
             <select name="role" required>
                 <option value=""> - Select One - </option>
-                <option value="staff" <?=($userInfo['role'] == 'Staff') ? " selected" : ""?> >Staff</option>
-                <option value="student" <?=($userInfo['role'] == 'Student') ? " selected" : ""?> >Student</option>
-                <option value="faculty" <?=($userInfo['role'] == 'Faculty') ? " selected" : ""?> >Faculty</option>
+                <option value="Staff" <?=($userInfo['role'] == 'Staff') ? " selected" : ""?> >Staff</option>
+                <option value="Student" <?=($userInfo['role'] == 'Student') ? " selected" : ""?> >Student</option>
+                <option value="Faculty" <?=($userInfo['role'] == 'Faculty') ? " selected" : ""?> >Faculty</option>
             </select></p>
             <br />
             <p><label>Department:</label> 
