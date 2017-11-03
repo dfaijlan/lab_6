@@ -1,95 +1,64 @@
-<!---->
+<?php
+session_start();
+
+function loginProcess() {
+    if(isset($_POST['loginForm']))
+    {
+        include 'database.php';
+        
+        $conn = getDatabaseConnection();
+        
+        $username = $_POST['username'];
+        $password = sha1($_POST['password']);
+        
+        $sql = "SELECT * 
+                FROM Admin 
+                WHERE username = :username
+                AND password = :password";
+                
+        $namedParameters = array();
+        $namedParameters[':username'] = $username;
+        $namedParameters[':password'] = $password;
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($namedParameters);
+        $record = $stmt->fetch();
+        
+        if(empty($record))
+        {
+            echo"Wrong Username or Password";
+            
+        }
+        else{
+            $_SESSION['username'] = $record['username'];
+            $_SESSION['adminName'] = $record['firstName'] . " " . $record['lastName'];
+            //echo $record['firstName'];
+            header("Location: admin.php");
+        }
+       // print_r($record);
+    }
+}
+?>
+
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Database Search</title>
+        <title>User Database</title>
         <style>
-            @import url("styles.css");
+            @import url("css/style.css");
         </style>
     </head>
-    <body>
-        <?php
-        
-        // connec tto our mysql database server
-
-        $sername = 'us-cdbr-iron-east-05.cleardb.net';
-        $username = 'b05742e5500b2b';
-        $password = 'a2d90cd8';
-        $dbname = 'heroku_e11c5f3d0a9fe08';
-        
-        $conn = new mysqli($sername, $username, $password, $dbname);
-        
-        // if($conn->connect_error)
-        // {
-        //     die("Connection failed: ".$conn->connect_error);
-        // }
-        // echo"Connection Successful";
-        
-        
-        // make a query
-        if($_GET["sort"] == "price")
-            $sort = "price";
-        else
-            $sort = "deviceName";
-                
-        if ($_GET["filter"] != "")
-        {
-            $filter = $_GET["filter"];
-            if ($_GET["filter_choice"] == "name")
-                $sql = "SELECT * FROM device WHERE deviceName LIKE '%$filter%' ORDER BY $sort";
-            elseif ($_GET["filter_choice"] == "type")
-                $sql = "SELECT * FROM device WHERE deviceType LIKE '%$filter%' ORDER BY $sort";   
-            else
-                $sql = "SELECT * FROM device WHERE status LIKE '%$filter%' ORDER BY $sort";
-        }
-        else 
-        {
-             $sql = "SELECT * FROM device ORDER BY $sort";
-        }
-        $result = $conn->query($sql);
-        if($result->num_rows > 0){
-        ?>
-        
-        <table>
-            <tr>
-                <th>Id</th>
-                <th>Device</th>
-                <th>Type</th>
-                <th>Price</th>
-                <th>Availability</th>
-            </tr>
-        <?php
-            while($row = $result->fetch_assoc())
-            {
-                echo "<tr><td>" . $row['id'] . "</td><td>". $row['deviceName'] . "</td><td>" . $row['deviceType'] . "</td><td>" . $row['price'] . "</td><td>" . $row['status'] . "</td></tr>";
-            }
-        }
-        else{
-            echo "0 results";
-        }
-        ?>
-        </table>
-        
-        <form>
-            <br>Filter by: 
-            <select name="filter_choice">
-                <option value="name">Name</option>
-                <option value="type">Type</option>
-                <option value="Availability">Availability</option>
-            </select>
-            <input type="text" name="filter" value = "">
-            Sort by: 
-            <select name="sort">
-                <option value="name">Name</option>
-                <option value="price">Price</option>
-            </select>
-            <input type="submit">
+    <body id=index>
+        <h1>Admin Login</h1>
+        <form method="post" id="indexForm">
+            Username: <input type="text" name="username" required/> <br />
+            Password: <input type="password" name="password" required/><br /><br />
+            <input type="submit" name="loginForm" value="Login!"/>
         </form>
+
+        <br />
         
-        <?php
-       $conn->close();
-        ?>
-        
+        <?=loginProcess()?>
     </body>
 </html>

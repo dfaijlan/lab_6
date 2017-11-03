@@ -1,0 +1,41 @@
+html {
+    height: 100%;
+}
+
+body {
+    background-image: url("background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color: white;
+    text-align: center;
+}
+
+#userChange  { display: table; text-align: left; width: 20%; margin: auto;}
+p     { display: table-row;}
+label { display: table-cell;}
+input { display: table-cell;}
+
+table {
+    border-collapse: collapse;
+    text-align: left;
+    width: 50%;
+    margin: auto;
+}
+
+th, td {
+   border: 1px solid white;
+}
+
+tr {
+   background-color: black;
+}
+
+tr:nth-child(even) {
+    background-color: #3d3d3d;
+}
+
+a {
+    color: lightblue;
+}
